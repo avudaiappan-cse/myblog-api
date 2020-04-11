@@ -20,7 +20,6 @@ mongoose.connect(process.env.MONGO_URI,
   },
   (err) => {
     if (err) return console.log(err);
-    console.log("MongoDB connected successfully!");
   }
 );
 
