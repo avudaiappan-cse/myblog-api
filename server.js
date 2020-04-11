@@ -57,7 +57,7 @@ const upload = multer({
   }
 });
 
-app.post("/",upload.single('image'),async (req, res) => {
+app.post("/",async (req, res) => {
   try {
     const post = await new Post(req.body);
     post.image = req.file.buffer;
@@ -67,6 +67,18 @@ app.post("/",upload.single('image'),async (req, res) => {
     res.status(500).send(err);
   }
 });
+
+app.post("/image/:id", upload.single('image'), async(req,res)=>{
+  try{
+    const post = await Post.findById(req.params.id);
+    post.image = req.file.buffer;
+    await post.save();
+    res.status(201).send(post);
+
+  }catch(err){
+    res.status(400).send();
+  }
+})
 
 app.patch("/:id", async (req, res) => {
   try {
