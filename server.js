@@ -60,7 +60,6 @@ const upload = multer({
 app.post("/",async (req, res) => {
   try {
     const post = await new Post(req.body);
-    post.image = req.file.buffer;
     await post.save();
     res.send(post);
   } catch (err) {
